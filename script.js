@@ -31,6 +31,87 @@ const coffeeMenu = [
     }
 ];
 
+let cart = []; // Array to hold cart items
+
+// Add to Cart Function
+function addToCart() {
+    const coffee = JSON.parse(localStorage.getItem("selectedCoffee"));
+    if (!coffee) {
+        alert("No coffee selected!");
+        return;
+    }
+    cart.push(coffee);
+    updateCartCount();
+    alert(`${coffee.name} added to cart.`);
+}
+
+// Update Cart Count in Header
+function updateCartCount() {
+    document.getElementById("cart-count").innerText = cart.length;
+}
+
+// Toggle Cart Popup
+function toggleCart() {
+    const cartPopup = document.getElementById("cart-popup");
+    const cartItems = document.getElementById("cart-items");
+
+    // Clear previous items
+    cartItems.innerHTML = "";
+
+    if (cart.length === 0) {
+        const emptyMessage = document.createElement("p");
+        emptyMessage.innerText = "Your cart is empty.";
+        cartItems.appendChild(emptyMessage);
+    } else {
+        // Add items to the list
+        cart.forEach((item, index) => {
+            const li = document.createElement("li");
+            li.innerText = `${item.name} - ${item.price}`;
+            const removeBtn = document.createElement("button");
+            removeBtn.innerText = "Remove";
+            removeBtn.onclick = () => removeFromCart(index);
+            li.appendChild(removeBtn);
+            cartItems.appendChild(li);
+        });
+    }
+
+    // Toggle visibility
+    cartPopup.style.display = cartPopup.style.display === "none" ? "block" : "none";
+}
+
+// Remove Item from Cart
+function removeFromCart(index) {
+    cart.splice(index, 1); // Remove item from array
+    updateCartCount();
+    toggleCart(); // Refresh the cart popup
+}
+
+// Close Cart Popup
+function closeCart() {
+    document.getElementById("cart-popup").style.display = "none";
+}
+
+// Checkout Functionality
+function checkout() {
+    if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+    }
+
+    cart = []; // Clear the cart after checkout
+    updateCartCount();
+
+    // Show payment success message
+    document.getElementById("cart-popup").style.display = "none";
+    document.getElementById("payment-success").style.display = "block";
+}
+
+// Close Payment Success Popup
+function closePaymentSuccess() {
+    document.getElementById("payment-success").style.display = "none";
+}
+
+
 function displayMenu() {
     const coffeeList = document.getElementById("coffee-list");
     coffeeMenu.forEach(coffee => {
@@ -51,52 +132,6 @@ function selectCoffee(coffeeName) {
     document.getElementById('menu').style.display = "none";  
     document.getElementById('customization').style.display = "block";  
     localStorage.setItem("selectedCoffee", JSON.stringify(coffee));
-}
-
-let cart = [];
-
-function addToCart() {
-    const coffee = JSON.parse(localStorage.getItem("selectedCoffee"));
-    cart.push(coffee);
-    updateCartCount();
-    alert(`${coffee.name} added to cart.`);
-}
-
-function updateCartCount() {
-    document.getElementById("cart-count").innerText = cart.length;
-}
-
-function toggleCart() {
-    const cartPopup = document.getElementById("cart-popup");
-    const cartItems = document.getElementById("cart-items");
-
-    cartItems.innerHTML = ""; // Clear the previous list
-    cart.forEach(item => {
-        const li = document.createElement("li");
-        li.innerText = `${item.name} - ${item.price}`;
-        cartItems.appendChild(li);
-    });
-
-    cartPopup.style.display = cartPopup.style.display === "none" ? "block" : "none";
-}
-
-function closeCart() {
-    document.getElementById("cart-popup").style.display = "none";
-}
-
-function checkout() {
-    if (cart.length === 0) {
-        alert("Your cart is empty!");
-        return;
-    }
-    document.getElementById("cart-popup").style.display = "none";
-    cart = [];
-    updateCartCount();
-    document.getElementById("payment-success").style.display = "block";
-}
-
-function closePaymentSuccess() {
-    document.getElementById("payment-success").style.display = "none";
 }
 
 function addToCart() {
