@@ -1,14 +1,141 @@
-<header>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACHUU FRIENDS COFFEE SHOP</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
     <img src="logo.jpg" alt="Logo" id="logo-left">
     <h1>ACHUU FRIENDS COFFEE SHOP</h1>
     <p>Your go-to place for the best coffee and delicious food!</p>
-    <div id="cart-icon" onclick="showCart()">🛒</div>
-</header>
+    </header>
 
-<!-- Add a Cart Section -->
-<div id="cart" style="display: none;">
-    <h2>Your Cart</h2>
-    <ul id="cart-items"></ul>
-    <button onclick="checkout()">Checkout</button>
-    <button onclick="hideCart()">Close</button>
+    <div style="position: relative;">
+    <button id="cart-icon" onclick="toggleCart()">🛒 Cart</button>
+    <div id="cart" style="display: none; position: absolute; right: 0; background: white; color: black; width: 200px; border: 1px solid black; padding: 10px;">
+        <h3>Your Cart</h3>
+        <ul id="cart-items"></ul>
+        <button onclick="checkout()">Checkout</button>
+    </div>
 </div>
+
+    <div id="menu">
+        <section id="coffees">
+            <h2>Coffee Menu</h2>
+            <ul id="coffee-list">
+                <!-- Coffee items will be dynamically displayed here -->
+            </ul>
+        </section>
+        <button id="back-btn-menu" onclick="goBackToMenu()">Back to Menu</button>
+    </div>
+
+    <div id="customization" style="display:none;">
+        <h2>Select Your Customizations</h2>
+        <form id="customization-form">
+            <!-- Milk & Dairy Options -->
+            <h3>Milk & Dairy Options:</h3>
+            <select id="milk-options">
+                <option value="Whole Milk">Whole Milk</option>
+                <option value="Skimmed Milk">Skimmed Milk</option>
+                <option value="Half-and-Half">Half-and-Half</option>
+                <option value="Heavy Cream">Heavy Cream</option>
+                <option value="Oat Milk">Oat Milk</option>
+            </select>
+
+            <!-- Sweeteners -->
+            <h3>Sweeteners:</h3>
+            <select id="sweeteners">
+                <option value="Sugar">Sugar (White or Brown)</option>
+                <option value="Honey">Honey</option>
+                <option value="Agave Syrup">Agave Syrup</option>
+                <option value="Maple Syrup">Maple Syrup</option>
+                <option value="Stevia">Stevia</option>
+                <option value="Splenda">Splenda</option>
+            </select>
+
+            <!-- Flavored Syrups -->
+            <h3>Flavored Syrups:</h3>
+            <select id="flavored-syrups">
+                <option value="Vanilla">Vanilla</option>
+                <option value="Caramel">Caramel</option>
+                <option value="Hazelnut">Hazelnut</option>
+                <option value="Mocha">Mocha (Chocolate)</option>
+                <option value="Pumpkin Spice">Pumpkin Spice</option>
+                <option value="Peppermint">Peppermint</option>
+                <option value="Almond">Almond</option>
+                <option value="Cinnamon Dolce">Cinnamon Dolce</option>
+                <option value="Toffee Nut">Toffee Nut</option>
+            </select>
+
+            <!-- Spices & Flavor Enhancers -->
+            <h3>Spices & Flavor Enhancers:</h3>
+            <select id="spices">
+                <option value="Cinnamon">Cinnamon</option>
+                <option value="Cardamom">Cardamom</option>
+                <option value="Clove">Clove</option>
+                <option value="Star Anise">Star Anise</option>
+            </select>
+
+            <!-- Toppings -->
+            <h3>Toppings:</h3>
+            <select id="toppings">
+                <option value="Whipped Cream">Whipped Cream</option>
+                <option value="Chocolate Shavings">Chocolate Shavings</option>
+                <option value="Caramel Drizzle">Caramel Drizzle</option>
+                <option value="Vanilla Bean Powder">Vanilla Bean Powder</option>
+                <option value="Crushed Peppermint Candy">Crushed Peppermint Candy</option>
+                <option value="Coconut Flakes">Coconut Flakes</option>
+                <option value="Cinnamon Stick">Cinnamon Stick</option>
+            </select>
+
+            <!-- Extras -->
+            <h3>Extras:</h3>
+            <select id="extras">
+                <option value="Espresso Shot">Espresso Shot</option>
+                <option value="Decaf Shot">Decaf Shot</option>
+                <option value="Protein Powder">Protein Powder</option>
+                <option value="Collagen Powder">Collagen Powder</option>
+                <option value="Adaptogens">Adaptogens (e.g., ashwagandha, maca)</option>
+                <option value="Butter">Butter (for bulletproof coffee)</option>
+                <option value="Ice">Ice (for iced coffee)</option>
+            </select>
+
+            <button type="button" onclick="addToCart()">Add to Cart</button>
+        </form>
+        <button id="back-btn-customization" onclick="goBackToMenu()">Back to Menu</button>
+    </div>
+
+    <div id="payment" style="display:none;">
+        <section id="order-summary">
+            <h2>Your Order</h2>
+            <p id="order-details"></p>
+            <p id="order-price"></p>
+        </section>
+
+        <section id="payment-methods">
+            <h2>Choose a Payment Method</h2>
+            <ul>
+                <li><button class="payment-button" onclick="payWithApplePay()">Apple Pay</button></li>
+                <li><button class="payment-button" onclick="payWithCreditCard()">Credit/Debit Card</button></li>
+                <li><button class="payment-button" onclick="payWithEBT()">EBT</button></li>
+                <li><button class="payment-button" onclick="payWithPayPal()">PayPal</button></li>
+            </ul>
+        </section>
+
+        <button id="back-btn-payment" onclick="goBackToMenu()">Back to Menu</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 ACHUU FRIENDS COFFEE SHOP. All rights reserved. <img src="logo.jpg" alt="Logo" id="logo-left"></p>
+    </footer>
+
+    <div class="scrolling-banner">
+        <p><strong>Buy 2 Get 1 Free on All Coffees! Hurry, Limited Time Offer!</strong></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
