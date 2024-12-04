@@ -3,31 +3,31 @@ const coffeeMenu = [
         name: "Espresso",
         description: "Strong and concentrated coffee.",
         price: "$2.50",
-        image: "espresso.jpg" // Add appropriate image file here
+        image: "images/espresso.jpg" // Add appropriate image file here
     },
     {
         name: "Americano",
         description: "Espresso with hot water.",
         price: "$3.00",
-        image: "americano.jpg" // Add appropriate image file here
+        image: "images/americano.jpg" // Add appropriate image file here
     },
     {
         name: "Cappuccino",
         description: "Espresso with steamed milk and foam.",
         price: "$3.50",
-        image: "cappuccino.jpg" // Add appropriate image file here
+        image: "images/cappuccino.jpg" // Add appropriate image file here
     },
     {
         name: "Latte",
         description: "Espresso with steamed milk.",
         price: "$3.75",
-        image: "latte.jpg" // Add appropriate image file here
+        image: "images/latte.jpg" // Add appropriate image file here
     },
     {
         name: "Mocha",
         description: "Espresso with chocolate syrup and steamed milk.",
         price: "$4.00",
-        image: "mocha.jpg" // Add appropriate image file here
+        image: "images/mocha.jpg" // Add appropriate image file here
     }
 ];
 
@@ -57,43 +57,31 @@ let cart = [];
 
 function addToCart() {
     const coffee = JSON.parse(localStorage.getItem("selectedCoffee"));
-    const milk = document.getElementById("milk-options").value;
-    const sweetener = document.getElementById("sweeteners").value;
-    const syrup = document.getElementById("flavored-syrups").value;
-    const spice = document.getElementById("spices").value;
-    const topping = document.getElementById("toppings").value;
-    const extra = document.getElementById("extras").value;
+    cart.push(coffee);
+    updateCartCount();
+    alert(`${coffee.name} added to cart.`);
+}
 
-    const cartItem = { coffee, milk, sweetener, syrup, spice, topping, extra };
-    cart.push(cartItem);
-
-    alert(`${coffee.name} has been added to the cart.`);
-    toggleCart(); // Show cart with updated items
+function updateCartCount() {
+    document.getElementById("cart-count").innerText = cart.length;
 }
 
 function toggleCart() {
-    const cartDiv = document.getElementById("cart");
-    cartDiv.style.display = cartDiv.style.display === "none" ? "block" : "none";
-    updateCartDisplay();
-}
+    const cartPopup = document.getElementById("cart-popup");
+    const cartItems = document.getElementById("cart-items");
 
-function updateCartDisplay() {
-    const cartItemsList = document.getElementById("cart-items");
-    cartItemsList.innerHTML = ""; // Clear previous items
-    cart.forEach((item, index) => {
+    cartItems.innerHTML = ""; // Clear the previous list
+    cart.forEach(item => {
         const li = document.createElement("li");
-        li.textContent = `${item.coffee.name} - ${item.coffee.price}`;
-        const removeBtn = document.createElement("button");
-        removeBtn.textContent = "Remove";
-        removeBtn.onclick = () => removeCartItem(index);
-        li.appendChild(removeBtn);
-        cartItemsList.appendChild(li);
+        li.innerText = `${item.name} - ${item.price}`;
+        cartItems.appendChild(li);
     });
+
+    cartPopup.style.display = cartPopup.style.display === "none" ? "block" : "none";
 }
 
-function removeCartItem(index) {
-    cart.splice(index, 1);
-    updateCartDisplay();
+function closeCart() {
+    document.getElementById("cart-popup").style.display = "none";
 }
 
 function checkout() {
@@ -101,9 +89,14 @@ function checkout() {
         alert("Your cart is empty!");
         return;
     }
-    alert("Payment Successful!");
-    cart = []; // Clear cart
-    toggleCart(); // Hide cart
+    document.getElementById("cart-popup").style.display = "none";
+    cart = [];
+    updateCartCount();
+    document.getElementById("payment-success").style.display = "block";
+}
+
+function closePaymentSuccess() {
+    document.getElementById("payment-success").style.display = "none";
 }
 
 function addToCart() {
@@ -155,5 +148,3 @@ function goBackToMenu() {
 }
 
 window.onload = displayMenu;
-
-
