@@ -3,31 +3,31 @@ const coffeeMenu = [
         name: "Espresso",
         description: "Strong and concentrated coffee.",
         price: "$2.50",
-        image: "images/espresso.jpg" // Add appropriate image file here
+        image: "espresso.jpg" // Add appropriate image file here
     },
     {
         name: "Americano",
         description: "Espresso with hot water.",
         price: "$3.00",
-        image: "images/americano.jpg" // Add appropriate image file here
+        image: "americano.jpg" // Add appropriate image file here
     },
     {
         name: "Cappuccino",
         description: "Espresso with steamed milk and foam.",
         price: "$3.50",
-        image: "images/cappuccino.jpg" // Add appropriate image file here
+        image: "cappuccino.jpg" // Add appropriate image file here
     },
     {
         name: "Latte",
         description: "Espresso with steamed milk.",
         price: "$3.75",
-        image: "images/latte.jpg" // Add appropriate image file here
+        image: "latte.jpg" // Add appropriate image file here
     },
     {
         name: "Mocha",
         description: "Espresso with chocolate syrup and steamed milk.",
         price: "$4.00",
-        image: "images/mocha.jpg" // Add appropriate image file here
+        image: "mocha.jpg" // Add appropriate image file here
     }
 ];
 
